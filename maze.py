@@ -32,30 +32,38 @@ class Maze:
                 neighbors.append((nx, ny))
         return neighbors
 
-    def print_maze(self, path=None):
-        """Чистый вывод без лишних пробелов"""
+    def print_maze(self, path=None, visited=None, dead_ends=None):
+        """Вывод с цветами: зелёный — путь, красный — тупики"""
+        RESET = '\033[0m'
+        GREEN = '\033[92m'   # зелёный
+        RED = '\033[91m'     # красный
+        YELLOW = '\033[93m'  # для S и E
+
         print("╔" + "═══" * self.cols + "╗")
 
         for i in range(self.rows):
             line = "║"
             for j in range(self.cols):
-                cell = self.grid[i][j]
+                pos = (i, j)
                 
-                if path and (i, j) in path:
-                    line += " • "      # путь
-                elif (i, j) == self.start:
-                    line += " S "
-                elif (i, j) == self.end:
-                    line += " E "
-                elif cell == 1 or cell == '#':
-                    line += " █ "      # стена
+                if path and pos in path:
+                    line += f" {GREEN}•{RESET} "      # зелёный путь
+                elif dead_ends and pos in dead_ends:
+                    line += f" {RED}•{RESET} "        # красные тупики
+                elif visited and pos in visited:
+                    line += f" {RED}•{RESET} "        # посещённые
+                elif pos == self.start:
+                    line += f" {YELLOW}S{RESET} "
+                elif pos == self.end:
+                    line += f" {YELLOW}E{RESET} "
+                elif self.grid[i][j] == 1 or self.grid[i][j] == '#':
+                    line += " █ "
                 else:
-                    line += "   "      # проход
+                    line += "   "
                     
             line += "║"
             print(line)
 
-            # Горизонтальная линия между рядами
             if i < self.rows - 1:
                 print("╠" + "═══" * self.cols + "╣")
 

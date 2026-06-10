@@ -5,12 +5,13 @@ class MazeSolver:
         self.maze = maze
 
     def solve_dfs(self):
-        """DFS алгоритм для поиска пути"""
+        """DFS с возвратом (backtracking) — возвращает путь и все посещённые клетки"""
         if not self.maze.start or not self.maze.end:
-            return None
+            return None, set()
 
         visited = set()
         stack = [(self.maze.start, [self.maze.start])]
+        dead_ends = set()   # клетки, из которых пришлось вернуться
 
         while stack:
             (x, y), current_path = stack.pop()
@@ -21,35 +22,17 @@ class MazeSolver:
             visited.add((x, y))
 
             if (x, y) == self.maze.end:
-                return current_path
+                return current_path, visited  # нашли путь
 
+            # Проверяем соседей
+            added = False
             for nx, ny in self.maze.get_neighbors(x, y):
                 if (nx, ny) not in visited:
                     stack.append(((nx, ny), current_path + [(nx, ny)]))
+                    added = True
 
-        return None  # пути нет
+            # Если нет соседей — это тупик
+            if not added and (x, y) != self.maze.start:
+                dead_ends.add((x, y))
 
-    # def solve_bfs(self):
-    #     """BFS алгоритм (для сравнения, находит самый короткий путь)"""
-    #     if not self.maze.start or not self.maze.end:
-    #         return None
-
-    #     visited = set()
-    #     queue = deque([(self.maze.start, [self.maze.start])])
-
-    #     while queue:
-    #         (x, y), current_path = queue.popleft()
-            
-    #         if (x, y) in visited:
-    #             continue
-                
-    #         visited.add((x, y))
-
-    #         if (x, y) == self.maze.end:
-    #             return current_path
-
-    #         for nx, ny in self.maze.get_neighbors(x, y):
-    #             if (nx, ny) not in visited:
-    #                 queue.append(((nx, ny), current_path + [(nx, ny)]))
-
-        return None
+        return None, visited  # пути нет

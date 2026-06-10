@@ -1,7 +1,7 @@
 from maze import Maze
 from solver import MazeSolver
 
-# Твой новый лабиринт 15x15 (1 = стена, 0 = проход)
+# === ПОЛНЫЙ ЛАБИРИНТ 15x15 ===
 grid = [
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
@@ -21,9 +21,9 @@ grid = [
 ]
 
 def main():
-    print("=== Лабиринт 15×15 (0/1 формат) ===\n")
+    print("=== Лабиринт 15×15 — исправленная версия ===\n")
     
-    # Указываем старт и финиш вручную
+    # Старт в (1,1), Финиш в (13,13)
     maze = Maze(grid, start=(1, 1), end=(13, 13))
     
     print("Исходный лабиринт:")
@@ -31,13 +31,15 @@ def main():
     
     solver = MazeSolver(maze)
     
-    print("Решение DFS:")
-    path = solver.solve_dfs()
+    print("\n=== DFS решение ===")
+    path, visited = solver.solve_dfs()
+    
     if path:
         print(f"Путь найден! Длина: {len(path)} шагов")
-        maze.print_maze(path)
+        print("Зелёный — успешный путь, Красный — посещённые/тупики:")
+        maze.print_maze(path=path, visited=visited)
     else:
-        print("Путь не найден")
+        print("Путь не найден!")
 
 if __name__ == "__main__":
     main()
