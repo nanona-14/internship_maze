@@ -14,16 +14,6 @@ Developed using **TDD** (Test-Driven Development).
 - Clean, modular code structure
 
 
-## Project Structure
-maze/                   
-└── internship_maze/
-|   ├── main.py                # Main entry point 
-|   ├── tests.py               # Unit tests (pytest)
-│   ├── maze.py                # Maze class + colored printing
-│   ├── solver.py              # DFS Solver
-│   └── maze_generator.py      # Random maze generator       
-
-
 ## How to Run
 
 ```powershell
@@ -34,4 +24,4 @@ cd internship_maze
 python main.py
 
 # 3. Run all tests
-python -m pytest -v
+python -m pytest main.py -v
