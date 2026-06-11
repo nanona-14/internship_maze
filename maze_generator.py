@@ -6,7 +6,7 @@ class MazeGenerator:
         self.cols = cols
 
     def generate(self):
-        """Генерирует красивый совершенный лабиринт (Recursive Backtracking)"""
+        """Generation (Recursive Backtracking)"""
         grid = [[1 for _ in range(self.cols)] for _ in range(self.rows)]
         
         # Начинаем с нечётной клетки
