@@ -4,7 +4,7 @@ from maze_generator import MazeGenerator
 from tests import *
 
 def main():
-    print("=== Генератор лабиринтов + DFS Solver ===\n")
+    print("=== Maze Generator + DFS Solver ===\n")
     
     # Создаём генератор
     generator = MazeGenerator(rows=15, cols=15)
@@ -12,29 +12,29 @@ def main():
     # Генерируем новый лабиринт
     grid, start, end = generator.generate()
     
-    print(f"Сгенерирован новый лабиринт {len(grid)}×{len(grid[0])}")
-    print(f"Старт: {start}, Финиш: {end}\n")
+    print(f"Generated new maze {len(grid)}×{len(grid[0])}")
+    print(f"Start: {start}, End: {end}\n")
     
     # Создаём объект Maze
     maze = Maze(grid, start=start, end=end)
     
     # Показываем исходный лабиринт
-    print("Исходный лабиринт:")
+    print("Current maze:")
     maze.print_maze()
     
     # Решаем лабиринт
     solver = MazeSolver(maze)
     
-    print("\n=== Решение с помощью DFS ===")
+    print("\n=== The solution with DFS ===")
     path, visited = solver.solve_dfs()
     
     if path:
-        print(f"✅ Путь найден! Длина пути: {len(path)} шагов")
-        print("Зелёный • — финальный путь")
-        print("Красный • — посещённые клетки и тупики\n")
+        print(f"✅ The path is found! The length of the path: {len(path)} steps")
+        print("Green • — final path")
+        print("Red • — visited parts\n")
         maze.print_maze(path=path, visited=visited)
     else:
-        print("❌ Путь не найден!")
+        print("❌ The path is not found!")
 
     print("="*60)
 
