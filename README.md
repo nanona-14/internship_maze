@@ -9,7 +9,7 @@ internship_maze/
 ├── fixed_maze.py       # Fixed 15x15 hardcoded maze
 ├── maze_generator.py   # Random maze generator (Recursive Backtracking)
 ├── maze_solver.py      # DFS maze solver
-├── demo.py             # Demo: runs both fixed and random maze
+├── main.py             # Demo: runs both fixed and random maze
 ├── tests.py            # Pytest tests
 └── README.md
 ```
@@ -36,13 +36,13 @@ pip install pytest
 ### Run the demo
 
 ```bash
-python demo.py
+python main.py
 ```
 
 ### Run tests
 
 ```bash
-python -m pytest tests.py -v
+python -m pytest main.py -v
 ```
 
 ## 📌 Usage Example
