@@ -1,7 +1,7 @@
 import random
 
 class MazeGenerator:
-    def __init__(self, rows=15, cols=15):
+    def __init__(self, rows=21, cols=21):
         self.rows = rows
         self.cols = cols
 
@@ -34,3 +34,5 @@ class MazeGenerator:
             if (0 < nx < self.rows-1 and 0 < ny < self.cols-1 and grid[nx][ny] == 1):
                 grid[cx + dx//2][cy + dy//2] = 0
                 self._carve_passages(grid, nx, ny)
+
+

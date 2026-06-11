@@ -7,7 +7,7 @@ def main():
     print("=== Maze Generator + DFS Solver ===\n")
     
     # Создаём генератор
-    generator = MazeGenerator(rows=15, cols=15)
+    generator = MazeGenerator(rows= 21, cols=21)
     
     # Генерируем новый лабиринт
     grid, start, end = generator.generate()

@@ -32,40 +32,46 @@ class Maze:
                 neighbors.append((nx, ny))
         return neighbors
 
+    
     def print_maze(self, path=None, visited=None, dead_ends=None):
-        """Вывод с цветами: зелёный — путь, красный — тупики"""
+        """Красивый вывод лабиринта как на картинке — чистые толстые стены"""
         RESET = '\033[0m'
-        GREEN = '\033[92m'   # зелёный
-        RED = '\033[91m'     # красный
-        YELLOW = '\033[93m'  # для S и E
+        GREEN = '\033[92m'
+        RED = '\033[91m'
+        YELLOW = '\033[93m'
 
-        print("╔" + "═══" * self.cols + "╗")
+        WALL = '║║'           # толстая стена
+        OPEN = '  '           # открытый проход
+        SOL_PATH = f"{GREEN}••{RESET}"   # зелёный путь
+        VISITED_MARK = f"{RED}••{RESET}" # красные посещённые/тупики
+
+        # Верхняя граница
+        print("╔" + "══" * self.cols + "╗")
 
         for i in range(self.rows):
             line = "║"
             for j in range(self.cols):
                 pos = (i, j)
-                
+
                 if path and pos in path:
-                    line += f" {GREEN}•{RESET} "      # зелёный путь
-                elif dead_ends and pos in dead_ends:
-                    line += f" {RED}•{RESET} "        # красные тупики
-                elif visited and pos in visited:
-                    line += f" {RED}•{RESET} "        # посещённые
+                    line += SOL_PATH
+                elif (dead_ends and pos in dead_ends) or (visited and pos in visited):
+                    line += VISITED_MARK
                 elif pos == self.start:
-                    line += f" {YELLOW}S{RESET} "
+                    line += f"{YELLOW}S{RESET}"
                 elif pos == self.end:
-                    line += f" {YELLOW}E{RESET} "
+                    line += f"{YELLOW}E{RESET}"
                 elif self.grid[i][j] == 1 or self.grid[i][j] == '#':
-                    line += " █ "
+                    line += WALL
                 else:
-                    line += "   "
-                    
+                    line += OPEN
+
             line += "║"
             print(line)
 
-            if i < self.rows - 1:
-                print("╠" + "═══" * self.cols + "╣")
+            # Горизонтальная линия
+            
 
-        print("╚" + "═══" * self.cols + "╝")
+        # Нижняя граница
+        print("╚" + "══" * self.cols + "╝")
         print()
